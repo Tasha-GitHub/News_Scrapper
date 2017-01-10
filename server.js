@@ -2,18 +2,12 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
-var mongojs = require("mongojs");
-// Requiring our Note and Article models
-var Note = require("./models/note.js");
-var Article = require("./models/article.js");
-// Our scraping tools
-var request = require("request");
-var cheerio = require("cheerio");
 // Mongoose mpromise deprecated - use bluebird promises
 var Promise = require("bluebird");
 
 mongoose.Promise = Promise;
 
+var port = process.env.PORT || 3000;
 
 // Initialize Express
 var app = express();
@@ -25,6 +19,17 @@ app.use(bodyParser.urlencoded({
 
 // Make public a static dir
 app.use(express.static("public"));
+
+// Set Handlebars.
+var exphbs = require("express-handlebars");
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+// Import routes and give the server access to them.
+var routes = require("./controllers/burgers_controller.js");
+
+app.use("/", routes);
 
 // Database configuration with mongoose
 mongoose.connect("mongodb://localhost/news_scrapper");
@@ -41,10 +46,10 @@ db.once("open", function() {
 });
 
 require("./routing/api-routes.js")(app);
-require("./routing/html-routes.js")(app);
+//require("./routing/html-routes.js")(app);
 
 
 // Listen on port 3000
-app.listen(3000, function() {
+app.listen(port, function() {
   console.log("App running on port 3000!");
 });

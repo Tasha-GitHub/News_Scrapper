@@ -1,0 +1,62 @@
+{{!-- <div class="banner">  
+  <img src="assets/img/bobsBurgers.png">
+</div> --}}
+<div class="banner">  
+  <h1>Hello</h1>
+</div>
+{{!-- 
+<div class="content">
+  <div class="left-well">
+    <h2>Burgers of the Day!</h2>
+      {{#each burgers}}
+        {{#unless this.devoured}}
+          <div class="menu">
+            <p> #{{this.id}}. {{this.burger_name}} </p>
+            <form action="burgers/update/{{this.id}}?_method=PUT" method="POST" id="offMenu">
+              <input type="hidden" name="devoured" value="false">
+              <button type="submit" class="btn btn-info">Order It!</button>
+            </form>
+          </div>  
+        {{/unless}}
+      {{/each}}
+  </div>
+
+  <div class="bottom-well">
+    <h2>Add a Burger to the Menu</h2>
+    <form class="create-update-form" action="burgers/create" method="POST">
+
+      <div class="form-group">
+        <label for="burgerInput">Burger Name:</label>
+        <input type="text" id="burgerInput" name="name">
+        <input type="hidden" name="devoured" value="false">
+        <button type="submit" class="btn btn-info">Add Burger</button>
+      </div>
+
+      
+    </form>
+  </div>
+
+    <div class="right-well">
+    <h2>Burger Order</h2>
+
+  
+      {{#each burgers}}
+        {{#if this.devoured}}
+          <div class="order">
+            <p> #{{this.id}} . {{this.burger_name}} </p>
+            <form action="burgers/delete/{{this.id}}?_method=DELETE" method="POST" id="offOrder">
+              <button type="submit" class="btn btn-info"> Take Off My Order</button>
+            </form>
+            
+          </div>
+        {{/if}}
+      {{/each}}
+    
+  </div>
+</div> --}}
+<footer>
+  <p>&copy; copyright Tasha and Bobs Burgers</p>
+</footer>
+
+
+
