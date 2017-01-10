@@ -1,0 +1,27 @@
+{
+  "name": "dev-news",
+  "version": "1.0.0",
+  "description": "mongodb database with cheerio scrapper",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tasha-GitHub/News_Scrapper.git"
+  },
+  "author": "Tasha Casagni",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tasha-GitHub/News_Scrapper/issues"
+  },
+  "homepage": "https://github.com/Tasha-GitHub/News_Scrapper#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cheerio": "^0.22.0",
+    "express": "^4.14.0",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^4.7.6",
+    "request": "^2.79.0"
+  }
+}
