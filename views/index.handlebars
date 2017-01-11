@@ -1,27 +1,44 @@
-{{!-- <div class="banner">  
-  <img src="assets/img/bobsBurgers.png">
-</div> --}}
 
-<nav class="nav navbar">
 
-  
-</nav>
 
-<div class="content">
-  <div>
-    <h2>Articles</h2>
-      {{#each newsArticles}}
-          <div class="menu">
-          <h1> hi </h1>
-            <p> {{this.title}}. {{this.link}} </p>
- {{!--            <form action="burgers/update/{{this.id}}?_method=PUT" method="POST" id="offMenu">
-              <input type="hidden" name="devoured" value="false">
-              <button type="submit" class="btn btn-info">Order It!</button>
-            </form> --}}
-          </div>  
-      {{/each}}
-  </div>{{!-- 
+<div class="content row">
 
+  <nav class="navbar bg-info navbar-inverse">
+    <div>
+      <ul class="nav nav-pills" role="tablist">
+        <li role="presentation"><a href="/articles">Daily Dev Digest</a></li>
+        <li role="presentation"><a href="#">Home</a></li>
+        <li role="presentation"><a href="/save/articles">Saved Articles</a></li>
+        <li><a href="/scrape"><button type="submit" class="btn btn-danger">Scrape Articles</button></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="row">
+    <div class="banner col-md-12">  
+      <img src="../assets/images/banner.jpg">
+    </div>
+  </div>
+
+  <div class="articleContainer row">
+    {{#each newsArticles}}
+      <div class="article">
+        <div class="panel panel-info">
+          <div class="panel-heading row">
+            <div class="col-md-11 title">
+              <h3>{{this.title}}</h3>
+            </div>
+            <div class="col-md-1 link">
+              <a href="#"><button type="submit" class="btn btn-danger save" data-id={{this.id}}>Save Article</button></a>
+            </div>
+          </div>
+          <div class="panel-body">{{this.link}}  
+          </div>
+        </div> 
+      </div>  
+    {{/each}}
+  </div>
+{{!-- 
   <div class="bottom-well">
     <h2>Add a Burger to the Menu</h2>
     <form class="create-update-form" action="burgers/create" method="POST">
@@ -54,9 +71,9 @@
       {{/each}}
     
   </div>
-</div> --}}
-<footer>
-  <p>&copy; copyright Tasha and Bobs Burgers</p>
+ --}}</div>
+<footer class="footer row">
+  <p>&copy; copyright Tasha</p>
 </footer>
 
 
