@@ -26,14 +26,24 @@ var router = express.Router();
   });
 
   router.get("/articles", function(req, res) {
-    // Article.all(function(data) {
-       var hbsObject = {
-        "burgers": "data"
+    Article.find({}, function(error, doc) {
+    // Send any errors to the browser
+    if (error) {
+      res.send(error);
+    }
+    // Or send the doc to the browser
+    else {
+      console.log(doc);
+      var hbsObject = {
+        "newsArticles": doc
       };
-    //   // console.log("handblebars obj");
-    //   // console.log(hbsObject);
-       res.render("index", {hbsObject});
-    // });
+    // console.log("handblebars obj");
+     console.log(hbsObject);
+       res.render("index", hbsObject);
+    }
+
+     });
+
   });
 
 
