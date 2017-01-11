@@ -19,51 +19,60 @@ var router = express.Router();
 // ===============================================================================
 // ROUTING
 // ===============================================================================
-  // router.get("/", function(req, res) {
-  //   res.redirect("/");
-  // });
-
   router.get("/", function(req, res) {
     Article.find({}, function(error, doc) {
-    // Send any errors to the browser
-    if (error) {
-      res.send(error);
-    }
-    // Or send the doc to the browser
-    else {
-      //console.log(doc);
-      var hbsObject = {
-        "newsArticles": doc
-      };
-    // console.log("handblebars obj");
-     //console.log(hbsObject);
-       res.render("index", hbsObject);
-    }
+      // Send any errors to the browser
+      if (error) {
+        res.send(error);
+      }
+      // Or send the doc to the browser
+      else {
+        //console.log(doc);
+        var hbsObject = {
+          "newsArticles": doc
+        };
+        // console.log("handblebars obj");
+        //console.log(hbsObject);
+         res.render("index", hbsObject);
+      }
+    });
+  });
 
-     });
+  router.get("/article/notes", function(req, res) {
+    // TODO
+    // =====
+    Article.find({}).populate("note").exec(function(error, doc){
+      if (error) {
+          res.send(error);
+        }
+        // Or, send our results to the browser, which will now include the books stored in the library
+        else {
+          res.send(doc);
+        }
 
+    });
   });
 
     //view all saved articles
   router.get("/save/articles", function(req, res) {
-    Article.find({saved : true}, function(error, doc) {
-    // Send any errors to the browser
-    if (error) {
-      res.send(error);
-    }
-    // Or send the doc to the browser
-    else {
-      //console.log(doc);
-      var hbsObject = {
-        "newsArticles": doc
-      };
-    // console.log("handblebars obj");
-     //console.log(hbsObject);
-       res.render("saved", hbsObject);
-    }
-
-     });
-
+    Article.find({saved : true}).populate("note").exec(function(error, doc) {
+      // Send any errors to the browser
+      if (error) {
+        res.send(error);
+      }
+      // Or send the doc to the browser
+      else {
+        //console.log(doc);
+        var hbsObject = {
+          "newsArticles": doc,
+          "notes": doc.notes
+        };
+        // console.log("handblebars obj");
+       //console.log(hbsObject);
+        res.render("saved", hbsObject);
+        console.log(hbsObject)
+      }
+    });
   });
 
 
@@ -104,7 +113,7 @@ var router = express.Router();
       });
     });
     // Tell the browser that we finished scraping the text
-    res.redirect("/articles");
+    res.redirect("/");
   });
 
   router.get("/notes", function(req, res) {
@@ -137,7 +146,7 @@ var router = express.Router();
 
   // New note creation via POST route
   router.post("/save/articles/:id?", function(req, res) {
-    console.log("success");
+    //console.log("success");
         // Use the article id to find and update it's note
         Article.findOneAndUpdate({ "_id": req.params.id }, {"saved": true })
         // Execute the above query
@@ -149,59 +158,78 @@ var router = express.Router();
           else {
             // Or send the document to the browser
             // res.send(doc);
-            console.log("success");
+            //console.log("success");
+            console.log(doc);
           }
         });
+  });
+
+    // New note creation via POST route
+  router.post("/remove/articles/:id?", function(req, res) {
+    //console.log("success");
+        // Use the article id to find and update it's note
+        Article.findOneAndUpdate({ "_id": req.params.id }, {"saved": false })
+        // Execute the above query
+        .exec(function(err, doc) {
+          // Log any errors
+          if (err) {
+            console.log(err);
+          }
+          else {
+            //console.log("success");
+            console.log(doc);
+          }
+        });
+  });
+
+
+    // New note deletion via POST route
+  router.post("/delete/note/:id?", function(req, res) {
+    //console.log("success");
+        // Use the article id to find and update it's note
+        Note.remove({ "_id": req.params.id })
+        // Execute the above query
+        .exec(function(err, doc) {
+          // Log any errors
+          if (err) {
+            console.log(err);
+          }
+          else {
+            //console.log("success");
+            console.log(doc);
+          }
+        });
+  });
+
+
+  // New note creation via POST route
+  router.post("/save/note/:id?", function(req, res) {
+    // Create a new note and pass the req.body to the entry
+    var newNote = new Note(req.body);
+    console.log(req.body)
+
+    // And save the new note the db
+    newNote.save(function(error, doc) {
+      // Send any errors to the browser
+      if (error) {
+        res.send(error);
+      }
+      // Otherwise
+      else {
+        // Find our user and push the new note id into the User's notes array
+        Article.findOneAndUpdate({"_id": req.params.id}, { $push: { "note": doc._id } }, { new: true }, function(err, newdoc) {
+          // Send any errors to the browser
+          if (err) {
+            res.send(err);
+          }
+          // Or send the newdoc to the browser
+          else {
+            res.send(newdoc);
+          }
+        });
+      }
     });
-
-  // // New note creation via POST route
-  // router.post("/save/articles:id?", function(req, res) {
-  //   // Create a new note and pass the req.body to the entry
-  //   var newNote = new Note(req.body);
-
-  //   // And save the new note the db
-  //   newNote.save(function(error, doc) {
-  //     // Log any errors
-  //     if (error) {
-  //       console.log(error);
-  //     }
-  //     // Otherwise
-  //     else {
-  //       // Use the article id to find and update it's note
-  //       Article.findOneAndUpdate({ "_id": req.params.id }, { "note": doc._id })
-  //       // Execute the above query
-  //       .exec(function(err, doc) {
-  //         // Log any errors
-  //         if (err) {
-  //           console.log(err);
-  //         }
-  //         else {
-  //           // Or send the document to the browser
-  //           res.send(doc);
-  //         }
-  //       });
-  //     }
-  //   });
-  // });
-
-  //   // Grab an article by it's ObjectId
-  // router.get("/save/:id", function(req, res) {
-  //   // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-  //   Article.findOne({ "_id": req.params.id })
-  //   // ..and populate all of the notes associated with it
-  //   .populate("note")
-  //   // now, execute our query
-  //   .exec(function(error, doc) {
-  //     // Log any errors
-  //     if (error) {
-  //       console.log(error);
-  //     }
-  //     // Otherwise, send the doc to the browser as a json object
-  //     else {
-  //       res.json(doc);
-  //     }
-  //   });
-  // });
+  });
 
 // Export routes for server.js to use.
 module.exports = router;

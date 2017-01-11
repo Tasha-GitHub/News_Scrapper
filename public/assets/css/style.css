@@ -22,6 +22,12 @@ body {
 
 .banner{
 	padding: 0px;
+	background-image: url("../images/banner.jpg");
+	text-align: center;
+	background-size: cover;
+	height: 500px;
+	color: #FFFFFF;
+
 }
 /*nav styling */
 nav {
@@ -35,4 +41,12 @@ nav {
 
 .panel-heading {
 	min-height: 70px;
+}
+
+footer{
+	text-align: center;
+}
+
+.noArticles{
+	text-align: center;
 }

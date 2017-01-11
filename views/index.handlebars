@@ -1,6 +1,3 @@
-
-
-
 <div class="content row">
 
   <nav class="navbar bg-info navbar-inverse">
@@ -15,63 +12,36 @@
   </nav>
 
   <div class="row">
-    <div class="banner col-md-12">  
-      <img src="../assets/images/banner.jpg">
+    <div class="banner col-md-12"> 
+    <h1>Daily Developer Digest</h1>
     </div>
   </div>
 
-  <div class="articleContainer row">
-    {{#each newsArticles}}
-      <div class="article">
-        <div class="panel panel-info">
-          <div class="panel-heading row">
-            <div class="col-md-11 title">
-              <h3>{{this.title}}</h3>
+  {{#if newsArticles}}
+    <div class="articleContainer row">
+      {{#each newsArticles}}
+        <div class="article">
+          <div class="panel panel-info">
+            <div class="panel-heading row">
+              <div class="col-md-11 title">
+                <h3>{{this.title}}</h3>
+              </div>
+              <div class="col-md-1 link">
+                <a href="#"><button type="submit" class="btn btn-danger save" data-id={{this.id}}>Save Article</button></a>
+              </div>
             </div>
-            <div class="col-md-1 link">
-              <a href="#"><button type="submit" class="btn btn-danger save" data-id={{this.id}}>Save Article</button></a>
+            <div class="panel-body">{{this.link}}  
             </div>
-          </div>
-          <div class="panel-body">{{this.link}}  
-          </div>
-        </div> 
-      </div>  
-    {{/each}}
-  </div>
-{{!-- 
-  <div class="bottom-well">
-    <h2>Add a Burger to the Menu</h2>
-    <form class="create-update-form" action="burgers/create" method="POST">
-
-      <div class="form-group">
-        <label for="burgerInput">Burger Name:</label>
-        <input type="text" id="burgerInput" name="name">
-        <input type="hidden" name="devoured" value="false">
-        <button type="submit" class="btn btn-info">Add Burger</button>
-      </div>
-
-      
-    </form>
-  </div>
-
-    <div class="right-well">
-    <h2>Burger Order</h2>
-
-  
-      {{#each burgers}}
-        {{#if this.devoured}}
-          <div class="order">
-            <p> #{{this.id}} . {{this.burger_name}} </p>
-            <form action="burgers/delete/{{this.id}}?_method=DELETE" method="POST" id="offOrder">
-              <button type="submit" class="btn btn-info"> Take Off My Order</button>
-            </form>
-            
-          </div>
-        {{/if}}
+          </div> 
+        </div>  
       {{/each}}
-    
-  </div>
- --}}</div>
+    </div>  
+  {{else}}
+    <div class="noArticles">
+      <h2>Please scrape articles to view the latest news</h2>
+    </div>
+  {{/if}}
+</div>
 <footer class="footer row">
   <p>&copy; copyright Tasha</p>
 </footer>
