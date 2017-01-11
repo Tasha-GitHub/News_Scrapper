@@ -1,0 +1,45 @@
+<div class="content row">
+
+  <nav class="navbar bg-info navbar-inverse">
+    <div>
+      <ul class="nav nav-pills" role="tablist">
+        <li role="presentation"><a href="/">Daily Dev Digest</a></li>
+        <li role="presentation"><a href="/">Home</a></li>
+        <li role="presentation"><a href="/save/articles">Saved Articles</a></li>
+        <li><a href="/scrape"><button type="submit" class="btn btn-danger">Scrape Articles</button></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="row">
+    <div class="banner col-md-12">  
+      <img src="../assets/images/banner.jpg">
+    </div>
+  </div>
+
+  <div class="articleContainer row">
+    {{#each newsArticles}}
+      <div class="article">
+        <div class="panel panel-info">
+          <div class="panel-heading row">
+            <div class="col-md-11 title">
+              <h3>{{this.title}}</h3>
+            </div>
+            <div class="col-md-1 link">
+              <a href="#"><button type="submit" class="btn btn-danger save" data-id={{this.id}}>Save Article</button></a>
+              <a href="#"><button type="submit" class="btn btn-danger save" data-id={{this.id}}>Save Article</button></a>
+            </div>
+          </div>
+          <div class="panel-body">{{this.link}}  
+          </div>
+        </div> 
+      </div>  
+    {{/each}}
+  </div>
+</div>
+<footer class="footer row">
+  <p>&copy; copyright Tasha</p>
+</footer>
+
+
+

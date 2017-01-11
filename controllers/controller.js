@@ -44,9 +44,9 @@ var router = express.Router();
 
   });
 
-
-    router.get("/save/articles", function(req, res) {
-    Article.find({saved: true}, function(error, doc) {
+    //view all saved articles
+  router.get("/save/articles", function(req, res) {
+    Article.find({saved : true}, function(error, doc) {
     // Send any errors to the browser
     if (error) {
       res.send(error);
@@ -68,7 +68,7 @@ var router = express.Router();
 
 
 
-// A GET request to scrape the echojs website
+  // A GET request to scrape the echojs website
   router.get("/scrape", function(req, res) {
     // First, we grab the body of the html with request
     request("http://www.reddit.com/r/webdev/", function(error, response, html) {
@@ -136,9 +136,10 @@ var router = express.Router();
   });
 
   // New note creation via POST route
-  router.post("/save/articles:id?", function(req, res) {
+  router.post("/save/articles/:id?", function(req, res) {
+    console.log("success");
         // Use the article id to find and update it's note
-        Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": true })
+        Article.findOneAndUpdate({ "_id": req.params.id }, {"saved": true })
         // Execute the above query
         .exec(function(err, doc) {
           // Log any errors
@@ -147,7 +148,8 @@ var router = express.Router();
           }
           else {
             // Or send the document to the browser
-            res.send(doc);
+            // res.send(doc);
+            console.log("success");
           }
         });
     });
