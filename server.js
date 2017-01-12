@@ -32,8 +32,8 @@ var routes = require("./controllers/controller.js");
 app.use("/", routes);
 
 // Database configuration with mongoose
-//mongoose.connect("mongodb://heroku_66f0q0vt:dl5na4963403fnbastute8p1o3@ds161038.mlab.com:61038/heroku_66f0q0vt");
-mongoose.connect("mongodb://localhost/news_scrapper");
+mongoose.connect("mongodb://heroku_66f0q0vt:dl5na4963403fnbastute8p1o3@ds161038.mlab.com:61038/heroku_66f0q0vt");
+//mongoose.connect("mongodb://localhost/news_scrapper");
 var db = mongoose.connection;
 
 // Show any mongoose errors
