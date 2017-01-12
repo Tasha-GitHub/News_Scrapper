@@ -148,20 +148,17 @@ var router = express.Router();
   router.post("/save/articles/:id?", function(req, res) {
     //console.log("success");
         // Use the article id to find and update it's note
-        Article.findOneAndUpdate({ "_id": req.params.id }, {"saved": true })
+    Article.findOneAndUpdate({ "_id": req.params.id }, {"saved": true })
         // Execute the above query
-        .exec(function(err, doc) {
+    .exec(function(err, doc) {
           // Log any errors
-          if (err) {
-            console.log(err);
-          }
-          else {
-            // Or send the document to the browser
-            // res.send(doc);
-            //console.log("success");
-            console.log(doc);
-          }
-        });
+      if (err) {
+        console.log(err);
+      }
+      else {
+        res.redirect("/");
+      }
+    });
   });
 
     // New note creation via POST route
@@ -178,6 +175,7 @@ var router = express.Router();
           else {
             //console.log("success");
             console.log(doc);
+            res.redirect("/save/articles");
           }
         });
   });
@@ -197,6 +195,8 @@ var router = express.Router();
           else {
             //console.log("success");
             console.log(doc);
+            //not working yet
+            res.redirect("/save/articles");
           }
         });
   });

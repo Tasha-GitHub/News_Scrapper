@@ -14,7 +14,15 @@ body {
 .row{
 	margin: 0px;
 }
+.panel{
+	border-width: 0px;
+	border-radius: 0px;
+}
 
+.panel-heading{
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+}
 .banner img{
 	width: 100%;
 }
@@ -58,6 +66,10 @@ nav {
 }
 .navigation {
 	margin-top: 10px;
+	color: #FFFFFF;
+}
+.navigation a {
+	color: #FFFFFF;
 }
 .title h3{
 	color: #FFFFFF;
