@@ -11,8 +11,7 @@ $(document).on("click", ".save", function() {
   })
     // With that done, add the note information to the page
     .done(function(data) {
-      console.log(data);
-      window.location.reload();
+    location.reload();
     });
 });
 
@@ -30,8 +29,7 @@ $(document).on("click", ".remove", function() {
   })
     // With that done, add the note information to the page
     .done(function(data) {
-      console.log(data);
-      location.reload();
+    location.reload();
     });
 });
 
@@ -56,7 +54,7 @@ $(document).on("click", ".saveNote", function() {
   })
     // With that done, add the note information to the page
     .done(function(data) {
-      console.log(data);
+    location.reload();
     });
 });
 
@@ -73,6 +71,6 @@ $(document).on("click", ".deleteNote", function() {
   })
     // With that done, add the note information to the page
     .done(function(data) {
-      console.log(data);
+      location.reload();
     });
 });

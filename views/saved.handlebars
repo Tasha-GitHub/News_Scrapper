@@ -54,7 +54,7 @@
                     <input type="text" name="notes" id="notes">
                     <br>
                     <br>
-                    <button type="button" class="btn btn-info saveNote" data-id={{this.id}}> Submit</button>
+                    <button type="button" class="btn btn-info saveNote" data-id={{this.id}} data-dismiss="modal"> Submit</button>
                   </form>
                   <hr>
                   <div>
@@ -64,7 +64,7 @@
                           <p>{{this.title}}</p>
                         </div>
                         <div class="col-md-1 col-sm-1 col-xs-1">
-                          <button type="button" class="btn btn-danger deleteNote" data-id={{this.id}}> X </button>
+                          <button type="button" class="btn btn-danger deleteNote" data-id={{this.id}} data-dismiss="modal"> X </button>
                         </div>                     
                       </div>
                     {{/each}}

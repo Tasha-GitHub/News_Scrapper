@@ -27,20 +27,15 @@ var router = express.Router();
       }
       // Or send the doc to the browser
       else {
-        //console.log(doc);
         var hbsObject = {
           "newsArticles": doc
         };
-        // console.log("handblebars obj");
-        //console.log(hbsObject);
          res.render("index", hbsObject);
       }
     });
   });
 
   router.get("/article/notes", function(req, res) {
-    // TODO
-    // =====
     Article.find({}).populate("note").exec(function(error, doc){
       if (error) {
           res.send(error);
@@ -53,7 +48,7 @@ var router = express.Router();
     });
   });
 
-    //view all saved articles
+  //view all saved articles
   router.get("/save/articles", function(req, res) {
     Article.find({saved : true}).populate("note").exec(function(error, doc) {
       // Send any errors to the browser
@@ -67,23 +62,20 @@ var router = express.Router();
           "newsArticles": doc,
           "notes": doc.notes
         };
-        // console.log("handblebars obj");
-       //console.log(hbsObject);
         res.render("saved", hbsObject);
-        console.log(hbsObject)
       }
     });
   });
 
 
 
-  // A GET request to scrape the echojs website
+  // A GET request to scrape the reddit website
   router.get("/scrape", function(req, res) {
     // First, we grab the body of the html with request
     request("http://www.reddit.com/r/webdev/", function(error, response, html) {
       // Then, we load that into cheerio and save it to $ for a shorthand selector
       var $ = cheerio.load(html);
-      // Now, we grab every h2 within an article tag, and do the following:
+      // Now, we grab every title within an article, and do the following:
       $(".title").each(function(i, element) {
 
         // Save an empty result object
@@ -92,7 +84,6 @@ var router = express.Router();
         // Add the text and href of every link, and save them as properties of the result object
         result.title = $(this).children("a").text();
         result.link = $(this).children("a").attr("href");
-        //console.log($(this).children("a"));
 
         // Using our Article model, create a new entry
         // This effectively passes the result object to the entry (and the title and link)
@@ -129,7 +120,6 @@ var router = express.Router();
     });
   });
 
-  // Route to see what user looks like without populating
   router.get("/articles", function(req, res) {
     // Find all users in the user collection with our User model
     Article.find({}, function(error, doc) {
@@ -144,9 +134,7 @@ var router = express.Router();
     });
   });
 
-  // New note creation via POST route
   router.post("/save/articles/:id?", function(req, res) {
-    //console.log("success");
         // Use the article id to find and update it's note
     Article.findOneAndUpdate({ "_id": req.params.id }, {"saved": true })
         // Execute the above query
@@ -161,48 +149,36 @@ var router = express.Router();
     });
   });
 
-    // New note creation via POST route
   router.post("/remove/articles/:id?", function(req, res) {
-    //console.log("success");
-        // Use the article id to find and update it's note
-        Article.findOneAndUpdate({ "_id": req.params.id }, {"saved": false })
-        // Execute the above query
-        .exec(function(err, doc) {
-          // Log any errors
-          if (err) {
-            console.log(err);
-          }
-          else {
-            //console.log("success");
-            console.log(doc);
-            res.redirect("/save/articles");
-          }
-        });
+    // Use the article id to find and update it's note
+    Article.findOneAndUpdate({ "_id": req.params.id }, {"saved": false })
+    // Execute the above query
+    .exec(function(err, doc) {
+       // Log any errors
+       if (err) {
+         console.log(err);
+       }
+       else {
+         res.redirect("/save/articles");
+       }
+    });
   });
 
-
-    // New note deletion via POST route
   router.post("/delete/note/:id?", function(req, res) {
-    //console.log("success");
-        // Use the article id to find and update it's note
-        Note.remove({ "_id": req.params.id })
-        // Execute the above query
-        .exec(function(err, doc) {
-          // Log any errors
-          if (err) {
-            console.log(err);
-          }
-          else {
-            //console.log("success");
-            console.log(doc);
-            //not working yet
-            res.redirect("/save/articles");
-          }
-        });
+    // Use the article id to find and update it's note
+    Note.remove({ "_id": req.params.id })
+    // Execute the above query
+    .exec(function(err, doc) {
+      // Log any errors
+      if (err) {
+        console.log(err);
+      }
+      else {
+        res.redirect("/save/articles");
+      }
+    });
   });
 
-
-  // New note creation via POST route
   router.post("/save/note/:id?", function(req, res) {
     // Create a new note and pass the req.body to the entry
     var newNote = new Note(req.body);
@@ -224,7 +200,7 @@ var router = express.Router();
           }
           // Or send the newdoc to the browser
           else {
-            res.send(newdoc);
+            res.redirect("/save/articles");
           }
         });
       }

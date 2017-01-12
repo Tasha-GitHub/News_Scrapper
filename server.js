@@ -32,8 +32,7 @@ var routes = require("./controllers/controller.js");
 app.use("/", routes);
 
 // Database configuration with mongoose
-//mongoose.connect("");
-mongoose.connect("mongodb://localhost/news_scrapper");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/news_scrapper");
 var db = mongoose.connection;
 
 // Show any mongoose errors
