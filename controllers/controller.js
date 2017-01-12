@@ -20,7 +20,7 @@ var router = express.Router();
 // ROUTING
 // ===============================================================================
   router.get("/", function(req, res) {
-    Article.find({}, function(error, doc) {
+    Article.find({saved : false}, function(error, doc) {
       // Send any errors to the browser
       if (error) {
         res.send(error);

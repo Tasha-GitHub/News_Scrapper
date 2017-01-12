@@ -12,7 +12,7 @@ $(document).on("click", ".save", function() {
     // With that done, add the note information to the page
     .done(function(data) {
       console.log(data);
-      location.reload();
+      window.location.reload();
     });
 });
 
